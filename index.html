@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rivals Database — Marvel Rivals</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+    --bg:#050609;
+    --panel:#0b0e14;
+    --panel2:#10141c;
+    --line:rgba(255,255,255,.09);
+    --text:#f4f6fa;
+    --muted:#8992a2;
+    --red:#ed2630;
+    --red2:#ff4650;
+    --gold:#f5c451;
+    --blue:#4da8ff;
+    --green:#44df9a;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 50% -10%,rgba(237,38,48,.20),transparent 35%),
+        radial-gradient(circle at 90% 30%,rgba(38,80,150,.10),transparent 30%),
+        var(--bg);
+    min-height:100vh;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+header{
+    height:72px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    background:rgba(5,6,9,.86);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(20px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:-.5px;
+}
+
+.logoBox{
+    width:40px;
+    height:40px;
+    border-radius:9px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(145deg,#ff3a42,#a30d14);
+    box-shadow:0 0 30px rgba(237,38,48,.3);
+}
+
+.logoBox span{
+    font-size:19px;
+    font-weight:900;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#929baa;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:800;
+    transition:.2s;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.keyboard{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#777f8e;
+    font-size:10px;
+    font-weight:800;
+}
+
+kbd{
+    background:#161b24;
+    border:1px solid #303744;
+    border-bottom:2px solid #242a35;
+    color:#d9dde5;
+    padding:5px 7px;
+    border-radius:5px;
+}
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    padding:85px 25px 45px;
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    border:1px solid rgba(237,38,48,.35);
+    background:rgba(237,38,48,.08);
+    color:#ff777d;
+    padding:7px 13px;
+    border-radius:30px;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:clamp(43px,8vw,86px);
+    line-height:.9;
+    letter-spacing:-5px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.hero h1 span{
+    color:var(--red);
+    text-shadow:0 0 45px rgba(237,38,48,.3);
+}
+
+.hero p{
+    max-width:650px;
+    margin:23px auto 0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* =========================================================
+CONTROLS
+========================================================= */
+
+.controls{
+    max-width:1250px;
+    margin:auto;
+    padding:0 25px 25px;
+}
+
+.search{
+    position:relative;
+    margin-bottom:13px;
+}
+
+.search input{
+    width:100%;
+    height:55px;
+    background:#0c0f15;
+    border:1px solid var(--line);
+    border-radius:13px;
+    outline:none;
+    color:white;
+    padding:0 20px 0 48px;
+    font-size:13px;
+    transition:.2s;
+}
+
+.search input:focus{
+    border-color:rgba(237,38,48,.65);
+    box-shadow:0 0 0 4px rgba(237,38,48,.07);
+}
+
+.searchIcon{
+    position:absolute;
+    left:18px;
+    top:17px;
+    color:#727b8b;
+    font-size:20px;
+}
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.filter{
+    cursor:pointer;
+    border:1px solid var(--line);
+    background:#0d1016;
+    color:#8f98a7;
+    border-radius:9px;
+    padding:10px 15px;
+    font-size:10px;
+    font-weight:900;
+    transition:.2s;
+}
+
+.filter:hover{
+    color:white;
+}
+
+.filter.active{
+    background:var(--red);
+    border-color:var(--red);
+    color:white;
+}
+
+/* =========================================================
+DATABASE INFO
+========================================================= */
+
+.databaseInfo{
+    max-width:1250px;
+    margin:auto;
+    padding:0 25px 18px;
+    display:flex;
+    justify-content:space-between;
+    color:#727b89;
+    font-size:11px;
+}
+
+.databaseInfo strong{
+    color:white;
+}
+
+/* =========================================================
+GRID
+========================================================= */
+
+.grid{
+    max-width:1250px;
+    margin:auto;
+    padding:0 25px 80px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+.card{
+    height:300px;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    border:1px solid var(--line);
+    border-radius:13px;
+    background:#0b0e14;
+    transition:
+        transform .25s,
+        border-color .25s,
+        box-shadow .25s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(237,38,48,.65);
+    box-shadow:0 20px 50px rgba(0,0,0,.55);
+}
+
+.cardImage{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    background:
+        radial-gradient(circle at 50% 25%,rgba(237,38,48,.2),transparent 35%),
+        #131822;
+    transition:transform .5s;
+}
+
+.card:hover .cardImage{
+    transform:scale(1.06);
+}
+
+.card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(3,4,7,.98) 0%,
+            rgba(3,4,7,.75) 28%,
+            transparent 70%
+        );
+    pointer-events:none;
+}
+
+.cardContent{
+    position:absolute;
+    z-index:2;
+    left:14px;
+    right:14px;
+    bottom:13px;
+}
+
+.role{
+    display:inline-block;
+    padding:5px 7px;
+    border-radius:5px;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:7px;
+}
+
+.vanguard{
+    color:#63b1ff;
+    background:rgba(77,168,255,.15);
+}
+
+.duelist{
+    color:#ff6971;
+    background:rgba(237,38,48,.15);
+}
+
+.strategist{
+    color:#57e0a0;
+    background:rgba(68,223,154,.14);
+}
+
+.card h2{
+    font-size:16px;
+    letter-spacing:-.5px;
+}
+
+.cardMeta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:5px;
+    color:#8d96a4;
+    font-size:9px;
+}
+
+.stars{
+    color:var(--gold);
+    letter-spacing:1px;
+}
+
+/* =========================================================
+MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(12px);
+}
+
+.modal.open{
+    display:flex;
+}
+
+.modalBox{
+    width:min(1050px,100%);
+    max-height:92vh;
+    overflow:auto;
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:18px;
+    background:
+        radial-gradient(circle at 90% 0%,rgba(237,38,48,.14),transparent 35%),
+        #090c12;
+    box-shadow:0 50px 120px rgba(0,0,0,.8);
+    animation:appear .25s ease;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.modalHero{
+    min-height:270px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:end;
+    padding:30px;
+    border-bottom:1px solid var(--line);
+}
+
+.modalHeroImage{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:.38;
+    object-position:center 20%;
+    filter:saturate(1.15);
+}
+
+.modalHero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(90deg,#080a0f 5%,rgba(8,10,15,.7) 42%,transparent 90%),
+        linear-gradient(0deg,#080a0f,transparent 55%);
+}
+
+.close{
+    position:absolute;
+    z-index:5;
+    right:18px;
+    top:18px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:rgba(0,0,0,.45);
+    color:white;
+    cursor:pointer;
+    font-size:21px;
+}
+
+.heroTitle{
+    position:relative;
+    z-index:3;
+}
+
+.heroTitle h2{
+    font-size:clamp(34px,6vw,64px);
+    text-transform:uppercase;
+    letter-spacing:-3px;
+}
+
+.heroTitle p{
+    margin-top:7px;
+    max-width:600px;
+    color:#9ba3b0;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.modalBody{
+    padding:25px 30px 35px;
+}
+
+.sectionTitle{
+    color:#707987;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.7px;
+    margin-bottom:13px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:28px;
+}
+
+.stat{
+    padding:14px;
+    background:#0e1219;
+    border:1px solid var(--line);
+    border-radius:10px;
+}
+
+.stat small{
+    display:block;
+    color:#697282;
+    font-size:8px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.stat strong{
+    font-size:16px;
+}
+
+.abilities{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.ability{
+    padding:15px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:10px;
+}
+
+.abilityTop{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+}
+
+.key{
+    min-width:38px;
+    height:29px;
+    padding:0 7px;
+    display:grid;
+    place-items:center;
+    background:#191e27;
+    border:1px solid #303744;
+    border-radius:5px;
+    color:white;
+    font-size:9px;
+    font-weight:900;
+}
+
+.ability h3{
+    font-size:12px;
+}
+
+.ability p{
+    color:#8c95a3;
+    font-size:10px;
+    line-height:1.6;
+}
+
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:70px 20px;
+    display:none;
+    color:#737d8b;
+}
+
+.empty h2{
+    color:white;
+    margin-bottom:6px;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+footer{
+    padding:28px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    color:#606977;
+    font-size:10px;
+}
+
+footer b{
+    color:var(--red);
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+    .grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+@media(max-width:800px){
+    nav,
+    .keyboard{
+        display:none;
+    }
+
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .abilities{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+    header{
+        padding:0 16px;
+    }
+
+    .hero{
+        padding-top:55px;
+    }
+
+    .hero h1{
+        letter-spacing:-3px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        padding-left:12px;
+        padding-right:12px;
+        gap:8px;
+    }
+
+    .controls,
+    .databaseInfo{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .card{
+        height:245px;
+    }
+
+    .card h2{
+        font-size:13px;
+    }
+
+    .modal{
+        padding:8px;
+    }
+
+    .modalBody{
+        padding:20px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <div class="logoBox">M</div>
+        <span>RIVALS DATABASE</span>
+    </div>
+
+    <nav>
+        <a href="#heroes">HÉROS</a>
+        <a href="#roles">RÔLES</a>
+        <a href="#about">INFOS</a>
+    </nav>
+
+    <div class="keyboard">
+        AZERTY
+        <kbd>Z</kbd>
+        <kbd>Q</kbd>
+        <kbd>S</kbd>
+        <kbd>D</kbd>
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="badge">
+        ? MARVEL RIVALS DATABASE
+    </div>
+
+    <h1>
+        CHOISIS TON<br>
+        <span>RIVAL</span>
+    </h1>
+
+    <p>
+        Découvre tous les héros, leurs rôles, leurs statistiques
+        et leurs capacités. Interface optimisée pour clavier AZERTY.
+    </p>
+
+</section>
+
+
+<section class="controls" id="roles">
+
+    <div class="search">
+        <span class="searchIcon">?</span>
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Rechercher Spider-Man, Hulk, Wolverine..."
+        >
+    </div>
+
+    <div class="filters">
+
+        <button class="filter active" data-role="all">
+            TOUS
+        </button>
+
+        <button class="filter" data-role="Vanguard">
+            ?? VANGUARD
+        </button>
+
+        <button class="filter" data-role="Duelist">
+            ? DUELIST
+        </button>
+
+        <button class="filter" data-role="Strategist">
+            ? STRATEGIST
+        </button>
+
+    </div>
+
+</section>
+
+
+<div class="databaseInfo">
+
+    <span>
+        <strong id="count">0</strong> héros
+    </span>
+
+    <span>
+        COMMANDES : ZQSD • SHIFT • E • F • Q
+    </span>
+
+</div>
+
+
+<main class="grid" id="heroes">
+
+    <div class="empty" id="empty">
+        <h2>Aucun héros trouvé</h2>
+        <p>Modifie ta recherche ou ton filtre.</p>
+    </div>
+
+</main>
+
+
+<!-- ======================================================
+MODAL
+====================================================== -->
+
+<div class="modal" id="modal">
+
+    <div class="modalBox">
+
+        <div class="modalHero">
+
+            <img
+                id="modalImage"
+                class="modalHeroImage"
+                alt=""
+            >
+
+            <button class="close" id="close">
+                ×
+            </button>
+
+            <div class="heroTitle">
+
+                <div id="modalRole"></div>
+
+                <h2 id="modalName"></h2>
+
+                <p id="modalDescription"></p>
+
+            </div>
+
+        </div>
+
+        <div class="modalBody">
+
+            <div class="sectionTitle">
+                BASE STATS
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <small>HEALTH</small>
+                    <strong id="modalHealth">—</strong>
+                </div>
+
+                <div class="stat">
+                    <small>ROLE</small>
+                    <strong id="modalRoleStat">—</strong>
+                </div>
+
+                <div class="stat">
+                    <small>DIFFICULTÉ</small>
+                    <strong id="modalDifficulty">—</strong>
+                </div>
+
+            </div>
+
+
+            <div class="sectionTitle">
+                CAPACITÉS
+            </div>
+
+            <div class="abilities" id="abilities"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer id="about">
+    Fan project • <b>Marvel Rivals</b> • © Marvel / NetEase
+</footer>
+
+
+<script>
+
+/* =========================================================
+CONFIGURATION IMAGES
+========================================================= */
+
+/*
+    Les portraits utilisent le CDN documenté par
+    MarvelRivalsAPI.
+
+    Si une image ne répond plus, remplace simplement
+    la valeur "slug" du héros ou son image URL.
+*/
+
+const IMAGE_BASE =
+    "https://marvelrivalsapi.com/rivals/heroes/";
+
+
+/* =========================================================
+HÉROS
+========================================================= */
+
+const heroes = [
+
+/* ---------------- VANGUARD ---------------- */
+
+{
+    name:"Hulk",
+    slug:"hulk",
+    role:"Vanguard",
+    health:700,
+    difficulty:2,
+    description:"Le géant vert domine la ligne de front grâce à sa puissance et sa résistance.",
+    abilities:[
+        ["LMB","Heavy Fists","Frappe les ennemis avec ses poings surpuissants."],
+        ["SHIFT","Indestructible Guard","Protège son équipe grâce à sa résistance Gamma."],
+        ["E","Guard","Absorbe et encaisse les attaques adverses."],
+        ["Q","World Breaker","Déchaîne une attaque dévastatrice sur la zone."],
+        ["PASSIF","Gamma Charge","Utilise son énergie Gamma pour renforcer ses actions."]
+    ]
+},
+
+{
+    name:"Captain America",
+    slug:"captain-america",
+    role:"Vanguard",
+    health:650,
+    difficulty:2,
+    description:"Le premier Avenger utilise son bouclier pour attaquer, bloquer et charger.",
+    abilities:[
+        ["LMB","Sentinel Strike","Attaque avec son bouclier."],
+        ["RMB","Vibranium Energy Saw","Lance son bouclier vers ses ennemis."],
+        ["SHIFT","Liberty Rush","Charge rapidement vers l'avant."],
+        ["E","Leading Dash","Fonce vers une cible."],
+        ["Q","Freedom Charge","Libère une puissante charge héroïque."]
+    ]
+},
+
+{
+    name:"Doctor Strange",
+    slug:"doctor-strange",
+    role:"Vanguard",
+    health:650,
+    difficulty:3,
+    description:"Le Sorcier Suprême contrôle la magie et les barrières mystiques.",
+    abilities:[
+        ["LMB","Daggers of Denak","Lance des dagues mystiques."],
+        ["RMB","Maelstrom of Madness","Libère l'énergie sombre accumulée."],
+        ["SHIFT","Cloak of Levitation","S'envole et traverse le champ de bataille."],
+        ["E","Guardian Shield","Crée une grande barrière magique."],
+        ["Q","Eye of Agamotto","Libère l'Œil d'Agamotto."],
+        ["PASSIF","Price of Magic","Accumule de la magie noire."]
+    ]
+},
+
+{
+    name:"Groot",
+    slug:"groot",
+    role:"Vanguard",
+    health:700,
+    difficulty:2,
+    description:"Le gardien végétal contrôle l'espace grâce à ses murs et ses racines.",
+    abilities:[
+        ["LMB","Vine Strike","Attaque avec ses lianes."],
+        ["SHIFT","Thornlash Wall","Crée un mur de ronces."],
+        ["E","Ironwood Wall","Déploie un mur défensif."],
+        ["Q","Strangling Prison","Emprisonne plusieurs ennemis."],
+        ["PASSIF","Flora Colossus","Ses constructions renforcent ses capacités."]
+    ]
+},
+
+{
+    name:"Magneto",
+    slug:"magneto",
+    role:"Vanguard",
+    health:650,
+    difficulty:3,
+    description:"Le maître du magnétisme utilise le métal comme arme et comme défense.",
+    abilities:[
+        ["LMB","Iron Volley","Lance des projectiles métalliques."],
+        ["RMB","Metallic Curtain","Crée une protection magnétique."],
+        ["SHIFT","Metal Bulwark","Absorbe les dégâts."],
+        ["E","Mag-Cannon","Utilise son énergie magnétique."],
+        ["Q","Meteor M","Fait tomber une immense météorite métallique."]
+    ]
+},
+
+{
+    name:"Thor",
+    slug:"thor",
+    role:"Vanguard",
+    health:600,
+    difficulty:3,
+    description:"Le dieu du tonnerre manie Mjolnir et canalise la puissance de la foudre.",
+    abilities:[
+        ["LMB","Mjolnir Bash","Frappe avec Mjolnir."],
+        ["SHIFT","Storm Surge","Se propulse vers l'ennemi."],
+        ["E","Lightning Field","Crée un champ électrique."],
+        ["Q","Ragnarok Rebirth","Déchaîne une immense puissance divine."],
+        ["PASSIF","Thorforce","Accumule la Thorforce."]
+    ]
+},
+
+{
+    name:"Venom",
+    slug:"venom",
+    role:"Vanguard",
+    health:800,
+    difficulty:2,
+    description:"Le symbiote utilise ses tentacules pour contrôler et harceler les ennemis.",
+    abilities:[
+        ["LMB","Dark Predation","Projette des tentacules."],
+        ["SHIFT","Venom Swing","Se balance rapidement."],
+        ["E","Symbiotic Resilience","Augmente temporairement sa survivabilité."],
+        ["Q","Feast of the Abyss","Plonge et attaque les ennemis."],
+        ["PASSIF","Alien Biology","Convertit une partie des dégâts en survivabilité."]
+    ]
+},
+
+{
+    name:"The Thing",
+    slug:"the-thing",
+    role:"Vanguard",
+    health:750,
+    difficulty:2,
+    description:"La Chose est un combattant extrêmement résistant spécialisé au corps-à-corps.",
+    abilities:[
+        ["LMB","Rocky Punch","Frappe avec ses poings de pierre."],
+        ["SHIFT","Yancy Street Charge","Charge droit devant."],
+        ["E","Clobberin' Time","Enchaîne de puissants coups."],
+        ["Q","It's Clobberin' Time","Déchaîne toute sa puissance."]
+    ]
+},
+
+{
+    name:"Emma Frost",
+    slug:"emma-frost",
+    role:"Vanguard",
+    health:650,
+    difficulty:3,
+    description:"La Reine Blanche alterne entre pouvoirs psychiques et forme diamant.",
+    abilities:[
+        ["LMB","Psychic Blasts","Projette des attaques psychiques."],
+        ["SHIFT","Diamond Form","Transforme son corps en diamant."],
+        ["E","Psychic Control","Contrôle les adversaires avec sa télépathie."],
+        ["Q","Psychic Domination","Libère une puissante attaque mentale."]
+    ]
+},
+
+{
+    name:"Angela",
+    slug:"angela",
+    role:"Vanguard",
+    health:650,
+    difficulty:3,
+    description:"La guerrière céleste utilise ses ailes et ses armes divines.",
+    abilities:[
+        ["LMB","Divine Attacks","Attaque avec ses armes célestes."],
+        ["SHIFT","Winged Fury","Utilise ses ailes pour se déplacer."],
+        ["E","Shielded Stance","Adopte une posture défensive."],
+        ["Q","Judgment of Heaven","Déchaîne son pouvoir céleste."]
+    ]
+},
+
+{
+    name:"The Hood",
+    slug:"the-hood",
+    role:"Vanguard",
+    health:650,
+    difficulty:3,
+    description:"Le Hood exploite ses pouvoirs démoniaques pour combattre au front.",
+    abilities:[
+        ["LMB","Demonic Pistols","Tire avec ses armes démoniaques."],
+        ["SHIFT","Dark Dash","Se déplace rapidement."],
+        ["E","Demonic Form","Renforce ses pouvoirs."],
+        ["Q","Demon's Rage","Déchaîne son énergie démoniaque."]
+    ]
+},
+
+/* ---------------- DUELISTS ---------------- */
+
+{
+    name:"Spider-Man",
+    slug:"spider-man",
+    role:"Duelist",
+    health:250,
+    difficulty:5,
+    description:"Spider-Man combine mobilité extrême, toiles et attaques acrobatiques.",
+    abilities:[
+        ["LMB","Spider-Power","Frappe rapidement."],
+        ["RMB","Web-Shooter","Lance une toile."],
+        ["SHIFT","Web-Swing","Se balance avec ses toiles."],
+        ["E","Get Over Here!","Se propulse vers une cible."],
+        ["Q","Spectacular Spin","Tournoie en attaquant plusieurs ennemis."]
+    ]
+},
+
+{
+    name:"Iron Man",
+    slug:"iron-man",
+    role:"Duelist",
+    health:250,
+    difficulty:2,
+    description:"Tony Stark domine les airs avec son armure et ses armes énergétiques.",
+    abilities:[
+        ["LMB","Repulsor Blast","Tire des projectiles énergétiques."],
+        ["RMB","Unibeam","Concentre un rayon d'énergie."],
+        ["SHIFT","Hyper-Velocity","Accélère dans les airs."],
+        ["E","Armor Overdrive","Améliore temporairement ses armes."],
+        ["Q","Invincible Pulse Cannon","Libère un gigantesque rayon."]
+    ]
+},
+
+{
+    name:"Black Panther",
+    slug:"black-panther",
+    role:"Duelist",
+    health:300,
+    difficulty:4,
+    description:"T'Challa utilise sa vitesse et le vibranium pour éliminer ses cibles.",
+    abilities:[
+        ["LMB","Vibranium Claws","Frappe avec ses griffes."],
+        ["SHIFT","Spirit Rend","Fonce vers une cible marquée."],
+        ["E","Spear Toss","Lance une arme de vibranium."],
+        ["Q","Bast's Descent","Invoque Bast."],
+        ["PASSIF","Panther's Cunning","Profite des marques appliquées aux ennemis."]
+    ]
+},
+
+{
+    name:"Scarlet Witch",
+    slug:"scarlet-witch",
+    role:"Duelist",
+    health:250,
+    difficulty:2,
+    description:"Wanda manipule la magie du chaos.",
+    abilities:[
+        ["LMB","Chaos Control","Absorbe l'énergie magique."],
+        ["RMB","Chthonian Burst","Lance des projectiles."],
+        ["SHIFT","Mystic Projection","Se transforme et traverse le terrain."],
+        ["E","Dark Seal","Crée une zone de contrôle."],
+        ["Q","Reality Erasure","Charge puis libère une énorme explosion."]
+    ]
+},
+
+{
+    name:"Hela",
+    slug:"hela",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"La déesse de la mort attaque à distance avec ses armes mystiques.",
+    abilities:[
+        ["LMB","Nightsword Thorn","Lance des projectiles."],
+        ["SHIFT","Astral Flock","Se transforme en corbeaux."],
+        ["E","Soul Drainer","Inflige une attaque concentrée."],
+        ["Q","Ragnarok Rebirth","Déchaîne la puissance de Ragnarok."]
+    ]
+},
+
+{
+    name:"Hawkeye",
+    slug:"hawkeye",
+    role:"Duelist",
+    health:275,
+    difficulty:4,
+    description:"Clint Barton élimine ses cibles avec une précision exceptionnelle.",
+    abilities:[
+        ["LMB","Piercing Arrow","Tire une flèche puissante."],
+        ["SHIFT","Ronin Slash","Utilise son épée."],
+        ["E","Crescent Slash","Effectue une attaque rapide."],
+        ["Q","Hunter's Sight","Révèle et vise les ennemis."]
+    ]
+},
+
+{
+    name:"Black Widow",
+    slug:"black-widow",
+    role:"Duelist",
+    health:275,
+    difficulty:4,
+    description:"Natasha combine fusil de précision et combat rapproché.",
+    abilities:[
+        ["LMB","Widow's Bite Baton","Utilise ses bâtons électriques."],
+        ["RMB","Red Room Rifle","Utilise son fusil."],
+        ["SHIFT","Edge Dancer","Effectue une attaque acrobatique."],
+        ["E","Electro-Plasma Blast","Charge son arme."],
+        ["Q","Electro-Plasma Explosion","Libère une explosion."]
+    ]
+},
+
+{
+    name:"Star-Lord",
+    slug:"star-lord",
+    role:"Duelist",
+    health:250,
+    difficulty:2,
+    description:"Peter Quill utilise ses blasters et sa mobilité.",
+    abilities:[
+        ["LMB","Element Guns","Tire avec ses deux blasters."],
+        ["SHIFT","Rocket Propulsion","Se propulse rapidement."],
+        ["E","Blaster Barrage","Déchaîne une rafale."],
+        ["Q","Galactic Legend","Active son mode ultime."]
+    ]
+},
+
+{
+    name:"Punisher",
+    slug:"the-punisher",
+    role:"Duelist",
+    health:300,
+    difficulty:2,
+    description:"Frank Castle utilise un arsenal lourd pour contrôler le terrain.",
+    abilities:[
+        ["LMB","Adjudication","Utilise son arme principale."],
+        ["RMB","Punisher's Arsenal","Passe à son arsenal."],
+        ["SHIFT","Scourge Grenade","Lance une grenade."],
+        ["E","Culling Turret","Déploie une tourelle."],
+        ["Q","Final Judgment","Utilise ses armes lourdes."]
+    ]
+},
+
+{
+    name:"Moon Knight",
+    slug:"moon-knight",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"Moon Knight utilise ses ankhs pour attaquer plusieurs cibles.",
+    abilities:[
+        ["LMB","Crescent Dart","Lance des projectiles."],
+        ["SHIFT","Moonlight Hook","Se déplace avec son grappin."],
+        ["E","Ancient Ankh","Place un ankh de contrôle."],
+        ["Q","Hand of Khonshu","Invoque Khonshu."]
+    ]
+},
+
+{
+    name:"Magik",
+    slug:"magik",
+    role:"Duelist",
+    health:300,
+    difficulty:4,
+    description:"Magik combine son Soulsword et les portails du Limbo.",
+    abilities:[
+        ["LMB","Soulsword","Frappe avec son épée."],
+        ["SHIFT","Stepping Discs","Se téléporte."],
+        ["E","Magik Slash","Effectue une attaque puissante."],
+        ["Q","Darkchild","Se transforme et gagne en puissance."]
+    ]
+},
+
+{
+    name:"Psylocke",
+    slug:"psylocke",
+    role:"Duelist",
+    health:275,
+    difficulty:4,
+    description:"Psylocke utilise ses pouvoirs psychiques et sa mobilité.",
+    abilities:[
+        ["LMB","Psychic Shuriken","Lance des shurikens."],
+        ["SHIFT","Psi-Blade Dash","Traverse rapidement les ennemis."],
+        ["E","Psychic Stealth","Se dissimule temporairement."],
+        ["Q","Dance of the Butterfly","Déchaîne une série d'attaques."]
+    ]
+},
+
+{
+    name:"Wolverine",
+    slug:"wolverine",
+    role:"Duelist",
+    health:350,
+    difficulty:3,
+    description:"Logan fonce sur les ennemis avec ses griffes d'adamantium.",
+    abilities:[
+        ["LMB","Savage Claw","Attaque avec ses griffes."],
+        ["SHIFT","Feral Leap","Saute sur une cible."],
+        ["E","Vicious Rampage","Enchaîne les coups."],
+        ["Q","Last Stand","Déchaîne sa rage."]
+    ]
+},
+
+{
+    name:"Iron Fist",
+    slug:"iron-fist",
+    role:"Duelist",
+    health:300,
+    difficulty:4,
+    description:"Danny Rand canalise le pouvoir du Dragon dans ses poings.",
+    abilities:[
+        ["LMB","Jeet Kune Do","Enchaîne des coups rapides."],
+        ["SHIFT","Living Chi","Renforce ses capacités."],
+        ["E","Dragon's Defense","Adopte une posture défensive."],
+        ["Q","Living Dragon","Libère la puissance du Dragon."]
+    ]
+},
+
+{
+    name:"Namor",
+    slug:"namor",
+    role:"Duelist",
+    health:275,
+    difficulty:2,
+    description:"Le souverain d'Atlantis commande de puissantes créatures marines.",
+    abilities:[
+        ["LMB","Trident of Neptune","Lance des projectiles."],
+        ["SHIFT","Blessing of the Deep","Se protège temporairement."],
+        ["E","Aquatic Dominion","Invoque une créature."],
+        ["Q","Horn of Proteus","Déchaîne une énorme créature."]
+    ]
+},
+
+{
+    name:"Winter Soldier",
+    slug:"winter-soldier",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"Bucky Barnes combine son bras métallique et son arme.",
+    abilities:[
+        ["LMB","Roterstern","Tire avec son arme."],
+        ["SHIFT","Trooper's Fist","Frappe avec son bras métallique."],
+        ["E","Tainted Voltage","Lance une attaque électrique."],
+        ["Q","Kraken Impact","Déchaîne une puissante attaque."]
+    ]
+},
+
+{
+    name:"Squirrel Girl",
+    slug:"squirrel-girl",
+    role:"Duelist",
+    health:275,
+    difficulty:2,
+    description:"Doreen utilise ses glands explosifs et ses acrobaties.",
+    abilities:[
+        ["LMB","Burst Acorn","Lance des glands explosifs."],
+        ["SHIFT","Squirrel Blockade","Crée une barrière."],
+        ["E","Tail Bounce","Se propulse avec sa queue."],
+        ["Q","Mammal Rage","Déchaîne une attaque massive."]
+    ]
+},
+
+{
+    name:"Human Torch",
+    slug:"human-torch",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"Johnny Storm manipule les flammes et vole librement.",
+    abilities:[
+        ["LMB","Flame Shots","Projette des boules de feu."],
+        ["SHIFT","Blazing Blast","Se déplace rapidement."],
+        ["E","Flame Field","Crée une zone de flammes."],
+        ["Q","Supernova","Déclenche une gigantesque explosion."]
+    ]
+},
+
+{
+    name:"Phoenix",
+    slug:"phoenix",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"Phoenix manipule une puissante énergie cosmique.",
+    abilities:[
+        ["LMB","Psychic Fire","Projette des flammes psychiques."],
+        ["SHIFT","Cosmic Flight","Se déplace dans les airs."],
+        ["E","Phoenix Flame","Crée une zone de flammes."],
+        ["Q","Dark Phoenix","Libère sa puissance cosmique."]
+    ]
+},
+
+{
+    name:"Daredevil",
+    slug:"daredevil",
+    role:"Duelist",
+    health:275,
+    difficulty:4,
+    description:"Matt Murdock combat grâce à ses sens surhumains.",
+    abilities:[
+        ["LMB","Billy Club","Attaque avec ses bâtons."],
+        ["SHIFT","Acrobatic Assault","Effectue une attaque acrobatique."],
+        ["E","Radar Sense","Détecte les ennemis."],
+        ["Q","Devil's Rage","Déchaîne une série d'attaques."]
+    ]
+},
+
+{
+    name:"Gambit",
+    slug:"gambit",
+    role:"Duelist",
+    health:275,
+    difficulty:4,
+    description:"Gambit charge les objets avec une énergie cinétique explosive.",
+    abilities:[
+        ["LMB","Kinetic Cards","Lance des cartes explosives."],
+        ["SHIFT","Kinetic Dash","Effectue une ruée rapide."],
+        ["E","Staff Strike","Attaque avec son bâton."],
+        ["Q","Royal Flush","Libère une énorme attaque cinétique."]
+    ]
+},
+
+{
+    name:"Rogue",
+    slug:"rogue",
+    role:"Duelist",
+    health:350,
+    difficulty:4,
+    description:"Rogue peut absorber temporairement les pouvoirs de ses adversaires.",
+    abilities:[
+        ["LMB","Power Punch","Frappe avec une force énorme."],
+        ["SHIFT","Southern Rush","Charge vers une cible."],
+        ["E","Power Absorption","Absorbe une capacité ennemie."],
+        ["Q","Mutant Power","Déchaîne son énergie mutante."]
+    ]
+},
+
+{
+    name:"Deadpool",
+    slug:"deadpool",
+    role:"Duelist",
+    health:300,
+    difficulty:3,
+    description:"Le mercenaire utilise ses pistolets, ses sabres et sa régénération.",
+    abilities:[
+        ["LMB","Twin Pistols","Tire avec ses deux pistolets."],
+        ["SHIFT","Teleport","Se téléporte rapidement."],
+        ["E","Regeneration","Récupère rapidement de la vie."],
+        ["Q","Maximum Effort","Déchaîne une attaque agressive."]
+    ]
+},
+
+{
+    name:"Elsa Bloodstone",
+    slug:"elsa-bloodstone",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"La chasseuse de monstres utilise un arsenal spécialisé.",
+    abilities:[
+        ["LMB","Bloodstone Rifle","Tire avec son fusil."],
+        ["SHIFT","Hunter's Dash","Se déplace rapidement."],
+        ["E","Monster Trap","Pose un piège."],
+        ["Q","Bloodstone Fury","Déchaîne son arsenal."]
+    ]
+},
+
+{
+    name:"Black Cat",
+    slug:"black-cat",
+    role:"Duelist",
+    health:275,
+    difficulty:4,
+    description:"Felicia Hardy utilise son agilité et sa chance surnaturelle.",
+    abilities:[
+        ["LMB","Lucky Shot","Tire avec ses armes."],
+        ["SHIFT","Cat's Leap","Saute sur une cible."],
+        ["E","Bad Luck","Applique un effet de malchance."],
+        ["Q","Nine Lives","Déchaîne ses pouvoirs acrobatiques."]
+    ]
+},
+
+{
+    name:"Cyclops",
+    slug:"cyclops",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"Scott Summers projette des rafales d'énergie optique dévastatrices.",
+    abilities:[
+        ["LMB","Optic Blast","Projette son rayon optique."],
+        ["SHIFT","Propulsion Burst","Utilise une rafale pour se propulser."],
+        ["F","Optic Ascent","Se propulse vers le haut avec son rayon."],
+        ["PASSIF","Kinetic Hover","Ralentit sa chute et continue d'attaquer."],
+        ["Q","Ruby Rage","Retire son viseur et libère un puissant rayon."]
+    ]
+},
+
+{
+    name:"Jubilee",
+    slug:"jubilee",
+    role:"Duelist",
+    health:275,
+    difficulty:3,
+    description:"Jubilee utilise ses pouvoirs mutants pour créer des explosions pyrotechniques.",
+    abilities:[
+        ["LMB","Firework Blast","Projette des feux d'artifice."],
+        ["SHIFT","Firework Dash","Se propulse rapidement."],
+        ["E","Plasma Burst","Crée une explosion d'énergie."],
+        ["Q","Grand Finale","Déclenche un énorme feu d'artifice."]
+    ]
+},
+
+/* ---------------- STRATEGISTS ---------------- */
+
+{
+    name:"Adam Warlock",
+    slug:"adam-warlock",
+    role:"Strategist",
+    health:275,
+    difficulty:3,
+    description:"Adam Warlock utilise l'énergie cosmique pour soigner et ressusciter.",
+    abilities:[
+        ["LMB","Quantum Magic","Projette de l'énergie quantique."],
+        ["RMB","Cosmic Cluster","Charge plusieurs projectiles."],
+        ["SHIFT","Soul Bond","Lie plusieurs alliés."],
+        ["E","Avatar Life Stream","Envoie une vague de soins."],
+        ["Q","Karmic Revival","Ressuscite les alliés proches."],
+        ["PASSIF","Regenerative Cocoon","Peut se reformer après son élimination."]
+    ]
+},
+
+{
+    name:"Luna Snow",
+    slug:"luna-snow",
+    role:"Strategist",
+    health:275,
+    difficulty:2,
+    description:"Luna Snow utilise la glace pour attaquer et soigner.",
+    abilities:[
+        ["LMB","Ice Arts","Projette de la glace."],
+        ["RMB","Absolute Zero","Utilise une attaque glaciale."],
+        ["SHIFT","Glacial Blast","Lance une puissante attaque."],
+        ["E","Share the Stage","Place une zone de soin."],
+        ["Q","Fate of Both Worlds","Alterne entre soins et dégâts."]
+    ]
+},
+
+{
+    name:"Mantis",
+    slug:"mantis",
+    role:"Strategist",
+    health:275,
+    difficulty:2,
+    description:"Mantis utilise Life Energy pour soutenir son équipe.",
+    abilities:[
+        ["LMB","Life Energy Blast","Projette de l'énergie."],
+        ["SHIFT","Spore Slumber","Endort une cible."],
+        ["E","Healing Flower","Soigne un allié."],
+        ["Q","Soul Resurgence","Améliore les performances de l'équipe."]
+    ]
+},
+
+{
+    name:"Loki",
+    slug:"loki",
+    role:"Strategist",
+    health:250,
+    difficulty:4,
+    description:"Loki crée des illusions et manipule le champ de bataille.",
+    abilities:[
+        ["LMB","Mystic Missile","Projette des projectiles mystiques."],
+        ["SHIFT","Devious Exchange","Échange sa position avec une illusion."],
+        ["E","Regeneration Domain","Crée une zone de régénération."],
+        ["Q","Ragnarok 'N' Roll","Imite temporairement une capacité."],
+        ["PASSIF","Deception","Crée des illusions."]
+    ]
+},
+
+{
+    name:"Rocket Raccoon",
+    slug:"rocket-raccoon",
+    role:"Strategist",
+    health:275,
+    difficulty:3,
+    description:"Rocket utilise ses gadgets pour soutenir et soigner son équipe.",
+    abilities:[
+        ["LMB","Scrap 'n' Blast","Tire avec son arme."],
+        ["SHIFT","Flying Ace","Se propulse rapidement."],
+        ["E","Repair Mode","Soigne les alliés."],
+        ["Q","C.Y.A.","Déploie une machine de soutien."]
+    ]
+},
+
+{
+    name:"Jeff the Land Shark",
+    slug:"jeff-the-land-shark",
+    role:"Strategist",
+    health:300,
+    difficulty:2,
+    description:"Jeff soigne ses alliés et peut plonger sous le terrain.",
+    abilities:[
+        ["LMB","Joyful Splash","Projette de l'eau qui soigne."],
+        ["SHIFT","Hide and Seek","Plonge sous le terrain."],
+        ["E","Aqua Burst","Projette une vague."],
+        ["Q","It's Jeff!","Plonge et avale les personnages proches."]
+    ]
+},
+
+{
+    name:"Cloak & Dagger",
+    slug:"cloak-and-dagger",
+    role:"Strategist",
+    health:275,
+    difficulty:3,
+    description:"Cloak & Dagger alternent entre ténèbres et lumière pour soutenir leur équipe.",
+    abilities:[
+        ["LMB","Light & Dark Force","Attaque avec lumière ou ténèbres."],
+        ["SHIFT","Terror Cape","Cloak se téléporte."],
+        ["E","Dagger Storm","Dagger soigne les alliés."],
+        ["Q","Eternal Bond","Déploie une puissante zone de soutien."]
+    ]
+},
+
+{
+    name:"Invisible Woman",
+    slug:"invisible-woman",
+    role:"Strategist",
+    health:275,
+    difficulty:3,
+    description:"Sue Storm protège son équipe avec ses champs de force.",
+    abilities:[
+        ["LMB","Orb Projection","Projette des orbes d'énergie."],
+        ["SHIFT","Guardian Shield","Crée un bouclier."],
+        ["E","Invisible Boundary","Devient invisible."],
+        ["Q","Invisible Woman's Barrier","Déploie une grande barrière."]
+    ]
+},
+
+{
+    name:"Mister Fantastic",
+    slug:"mister-fantastic",
+    role:"Strategist",
+    health:350,
+    difficulty:3,
+    description:"Reed Richards utilise son corps extensible pour attaquer et protéger.",
+    abilities:[
+        ["LMB","Stretch Punch","Étend ses bras."],
+        ["SHIFT","Flexible Bounce","Rebondit rapidement."],
+        ["E","Distended Grip","Attrape les ennemis."],
+        ["Q","Brainstorm","Amplifie temporairement ses capacités."]
+    ]
+},
+
+{
+    name:"Ultron",
+    slug:"ultron",
+    role:"Strategist",
+    health:275,
+    difficulty:3,
+    description:"Ultron déploie des drones et utilise une technologie avancée.",
+    abilities:[
+        ["LMB","Encephalo-Ray","Projette un rayon."],
+        ["SHIFT","Rage of Ultron","Se déplace rapidement dans les airs."],
+        ["E","Imperial Guard","Déploie des drones."],
+        ["Q","Rage of Ultron","Libère une attaque massive."]
+    ]
+},
+
+{
+    name:"White Fox",
+    slug:"white-fox",
+    role:"Strategist",
+    health:275,
+    difficulty:4,
+    description:"White Fox utilise ses pouvoirs spirituels pour soutenir ses alliés.",
+    abilities:[
+        ["LMB","Foxfire","Projette une énergie spirituelle."],
+        ["SHIFT","Fox Form","Prend sa forme de renard."],
+        ["E","Spirit Healing","Soigne ses alliés."],
+        ["Q","Kumiho Unleashed","Libère la puissance du Kumiho."]
+    ]
+},
+
+{
+    name:"Devil Dinosaur",
+    slug:"devil-dinosaur",
+    role:"Strategist",
+    health:500,
+    difficulty:2,
+    description:"Le gigantesque Devil Dinosaur apporte une puissance préhistorique au combat.",
+    abilities:[
+        ["LMB","Dinosaur Bite","Mord ses ennemis."],
+        ["SHIFT","Primal Charge","Charge en avant."],
+        ["E","Tail Smash","Frappe avec sa queue."],
+        ["Q","Savage Roar","Déchaîne un rugissement massif."]
+    ]
+}
+
+];
+
+
+/* =========================================================
+UTILITAIRES
+========================================================= */
+
+function imageUrl(hero){
+
+    return IMAGE_BASE + hero.slug + "/icon.png";
+}
+
+function roleClass(role){
+
+    if(role === "Vanguard")
+        return "vanguard";
+
+    if(role === "Duelist")
+        return "duelist";
+
+    return "strategist";
+}
+
+function roleLabel(role){
+
+    if(role === "Vanguard")
+        return "VANGUARD";
+
+    if(role === "Duelist")
+        return "DUELIST";
+
+    return "STRATEGIST";
+}
+
+function difficulty(value){
+
+    return "?".repeat(value) +
+           "?".repeat(5-value);
+}
+
+
+/* =========================================================
+AFFICHAGE
+========================================================= */
+
+const grid =
+    document.getElementById("heroes");
+
+const search =
+    document.getElementById("search");
+
+const count =
+    document.getElementById("count");
+
+const empty =
+    document.getElementById("empty");
+
+let currentRole = "all";
+
+
+function createCard(hero){
+
+    const card =
+        document.createElement("article");
+
+    card.className = "card";
+
+    card.innerHTML = `
+
+        <img
+            class="cardImage"
+            src="${imageUrl(hero)}"
+            alt="${hero.name}"
+            loading="lazy"
+            onerror="this.style.opacity='0';"
+        >
+
+        <div class="cardContent">
+
+            <span class="role ${roleClass(hero.role)}">
+                ${roleLabel(hero.role)}
+            </span>
+
+            <h2>${hero.name}</h2>
+
+            <div class="cardMeta">
+
+                <span>
+                    ${hero.health} PV
+                </span>
+
+                <span class="stars">
+                    ${difficulty(hero.difficulty)}
+                </span>
+
+            </div>
+
+        </div>
+    `;
+
+    card.addEventListener("click", () => {
+        openHero(hero);
+    });
+
+    return card;
+}
+
+
+function render(){
+
+    const query =
+        search.value
+        .toLowerCase()
+        .trim();
+
+    grid
+        .querySelectorAll(".card")
+        .forEach(card => card.remove());
+
+    const filtered =
+        heroes.filter(hero => {
+
+            const name =
+                hero.name
+                .toLowerCase()
+                .includes(query);
+
+            const role =
+                currentRole === "all" ||
+                hero.role === currentRole;
+
+            return name && role;
+        });
+
+    filtered.forEach(hero => {
+        grid.appendChild(
+            createCard(hero)
+        );
+    });
+
+    count.textContent =
+        filtered.length;
+
+    empty.style.display =
+        filtered.length
+        ? "none"
+        : "block";
+}
+
+
+/* =========================================================
+FILTRES
+========================================================= */
+
+document
+.querySelectorAll(".filter")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document
+        .querySelectorAll(".filter")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        currentRole =
+            button.dataset.role;
+
+        render();
+    });
+
+});
+
+
+search.addEventListener(
+    "input",
+    render
+);
+
+
+/* =========================================================
+MODAL
+========================================================= */
+
+const modal =
+    document.getElementById("modal");
+
+const closeButton =
+    document.getElementById("close");
+
+const modalImage =
+    document.getElementById("modalImage");
+
+const modalName =
+    document.getElementById("modalName");
+
+const modalRole =
+    document.getElementById("modalRole");
+
+const modalRoleStat =
+    document.getElementById("modalRoleStat");
+
+const modalHealth =
+    document.getElementById("modalHealth");
+
+const modalDifficulty =
+    document.getElementById("modalDifficulty");
+
+const modalDescription =
+    document.getElementById("modalDescription");
+
+const abilities =
+    document.getElementById("abilities");
+
+
+function openHero(hero){
+
+    modal.classList.add("open");
+
+    document.body.style.overflow =
+        "hidden";
+
+    modalImage.src =
+        imageUrl(hero);
+
+    modalImage.alt =
+        hero.name;
+
+    modalName.textContent =
+        hero.name;
+
+    modalRole.innerHTML = `
+        <span class="role ${roleClass(hero.role)}">
+            ${roleLabel(hero.role)}
+        </span>
+    `;
+
+    modalRoleStat.textContent =
+        hero.role;
+
+    modalHealth.textContent =
+        hero.health;
+
+    modalDifficulty.textContent =
+        difficulty(hero.difficulty);
+
+    modalDescription.textContent =
+        hero.description;
+
+    abilities.innerHTML = "";
+
+    hero.abilities.forEach(
+        ability => {
+
+            const [
+                key,
+                name,
+                description
+            ] = ability;
+
+            const element =
+                document.createElement("div");
+
+            element.className =
+                "ability";
+
+            element.innerHTML = `
+
+                <div class="abilityTop">
+
+                    <div class="key">
+                        ${key}
+                    </div>
+
+                    <h3>
+                        ${name}
+                    </h3>
+
+                </div>
+
+                <p>
+                    ${description}
+                </p>
+
+            `;
+
+            abilities.appendChild(
+                element
+            );
+        }
+    );
+}
+
+
+function closeModal(){
+
+    modal.classList.remove("open");
+
+    document.body.style.overflow =
+        "";
+}
+
+
+closeButton.addEventListener(
+    "click",
+    closeModal
+);
+
+
+modal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === modal){
+            closeModal();
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+            closeModal();
+        }
+
+    }
+);
+
+
+/* =========================================================
+AZERTY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.target.tagName === "INPUT" ||
+            event.target.tagName === "TEXTAREA"
+        ){
+            return;
+        }
+
+        /*
+            AZERTY :
+            Z = avancer
+            Q = gauche
+            S = reculer
+            D = droite
+            E = capacité
+            F = capacité
+            Q = ultime en jeu
+        */
+
+        const key =
+            event.key.toLowerCase();
+
+        if(
+            ["z","q","s","d","e","f"].includes(key)
+        ){
+            console.log(
+                "Touche AZERTY :",
+                key.toUpperCase()
+            );
+        }
+
+    }
+);
+
+
+/* =========================================================
+START
+========================================================= */
+
+render();
+
+</script>
+
+</body>
+</html>
